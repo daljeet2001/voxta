@@ -4,13 +4,15 @@
   "private": true,
   "type": "module",
 
-  "scripts": {
-    "dev": "concurrently \"next dev\" \"node --loader ts-node/esm server-ws/index.ts\"",
-    "dev:next": "next dev",
-    "dev:ws": "node --loader ts-node/esm server-ws/index.ts",
-    "build": "prisma generate && next build",
-    "postinstall": "prisma generate"
-  },
+"scripts": {
+  "dev": "concurrently \"npm run dev:next\" \"npm run dev:ws\"",
+  "dev:next": "next dev",
+  "dev:ws": "node --loader ts-node/esm server-ws/index.ts",
+  "build": "prisma generate && next build",
+  "start": "next start",
+  "postinstall": "prisma generate"
+}
+,
 
 "prisma": {
   "seed": "node --loader ts-node/esm prisma/seed.ts"
