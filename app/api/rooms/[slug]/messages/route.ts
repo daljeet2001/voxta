@@ -4,7 +4,7 @@ import prisma from "../../../../../lib/prisma";
 // GET /api/rooms/[slug]/messages
 export async function GET(
   req: NextRequest,
-  context: { params: { slug: string } } // must be 'context'
+  context: { params: { slug: string } }
 ) {
   try {
     const { slug } = context.params;

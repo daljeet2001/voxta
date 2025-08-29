@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "../../../lib/prisma";
 
-// POST /api/rooms (create a private room)
-export async function POST(req: NextRequest) {
+// POST /api/rooms -> create a private room
+export async function POST(req: Request) {
   try {
     const { name, slug } = await req.json();
 
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// GET /api/rooms (list all public rooms)
+// GET /api/rooms -> list all public rooms
 export async function GET() {
   try {
     const rooms = await prisma.room.findMany({
