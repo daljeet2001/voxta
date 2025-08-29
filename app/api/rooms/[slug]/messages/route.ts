@@ -3,9 +3,9 @@ import prisma from "../../../../../lib/prisma";
 
 export async function GET(
   req: Request,
-  context: { params: { slug: string } }
+  { params }: { params: { slug: string } }
 ) {
-  const { slug } = context.params; 
+  const { slug } = params; // ✅ safe, no await
 
   const room = await prisma.room.findUnique({ where: { slug } });
   if (!room) {
