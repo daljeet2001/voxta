@@ -5,10 +5,16 @@
   "type": "module",
 
   "scripts": {
-    "dev":"concurrently \"next dev\" \"node --loader ts-node/esm server-ws/index.ts\"",
+    "dev": "concurrently \"next dev\" \"node --loader ts-node/esm server-ws/index.ts\"",
     "dev:next": "next dev",
     "dev:ws": "node --loader ts-node/esm server-ws/index.ts"
   },
+
+"prisma": {
+  "seed": "node --loader ts-node/esm prisma/seed.ts"
+},
+
+
   "dependencies": {
     "@prisma/client": "^6.15.0",
     "next": "15.5.2",

@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Voxta 🗨️  
+_Open World Chatrooms with Next.js, Postgres, and WebSockets_
 
-## Getting Started
+## Overview  
+**Voxta** brings people together in **public chatrooms** open to everyone, as well as **private rooms** users can create and manage.  
+It’s built with **Next.js, PostgreSQL, Prisma, TailwindCSS, and WebSockets**, focusing on real-time messaging and seamless room-based communication.  
 
-First, run the development server:
 
+
+---
+
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
 ```bash
+git clone https://github.com/yourusername/voxta.git
+
+2. Setup environment variables
+Create a .env file in the project root:
+
+DATABASE_URL=your_postgres_url
+WS_PORT=4000
+NEXT_PUBLIC_WS_PORT=4000
+
+3. Start Postgres
+Run PostgreSQL locally (or use Railway/Neon/Supabase).
+Run database migrations + seed public rooms:
+
+npx prisma migrate dev --name init
+npx prisma db seed
+
+4. Start the app
+By default, both Next.js and WS server start together:
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. You can start them separate(optional)
+npm run dev:next   # Start Next.js
+npm run dev:ws     # Start WebSocket server
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

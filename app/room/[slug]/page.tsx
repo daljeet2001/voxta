@@ -15,6 +15,7 @@ export default function RoomPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [username, setUsername] = useState("");
+  const [finalUsername, setFinalUsername] = useState("");
   const wsRef = useRef<WebSocket | null>(null);
   const [count, setCount] = useState(0);
   const [systemMessages, setSystemMessages] = useState<{ id: string; text: string }[]>([]);
@@ -54,7 +55,7 @@ useEffect(() => {
       JSON.stringify({
         type: "join_room",
         room: slug,
-        username: username || `anon_${Math.random().toString(36).slice(2, 6)}`,
+        username: finalUsername || `anon_${Math.random().toString(36).slice(2, 6)}`,
       })
     );
 
@@ -92,9 +93,10 @@ useEffect(() => {
     }
   };
 
-  ws.onerror = (err) => {
-    console.error("WebSocket error:", err);
-  };
+ws.onerror = () => {
+  console.warn("⚠️ WebSocket encountered a transient error (usually safe to ignore).");
+};
+
 
   return () => {
     try {
@@ -106,7 +108,7 @@ useEffect(() => {
     }
     ws.close();
   };
-}, [slug, username]);
+}, [slug, finalUsername]);
 
 function sendMessage(e: React.FormEvent) {
   e.preventDefault();
@@ -129,15 +131,23 @@ function sendMessage(e: React.FormEvent) {
   return (
     <div className="min-h-screen bg-slate-100 p-6">
       <div className="max-w-3xl mx-auto bg-white p-4 rounded shadow">
-        <div className="flex justify-between mb-3">
+        <div className="flex justify-between  mb-3">
           <h2 className="text-xl font-semibold">Room: {slug}</h2>
+          <div>
           <input
             className="border p-1 rounded"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="username"
           />
-        </div>
+          <button
+      className="ml-2 bg-blue-600 text-white px-3 py-1 rounded"
+      onClick={() => setFinalUsername(username)}
+    >
+      Join
+    </button>
+    </div>
+    </div>
         <div>Number of people in room:{count}</div>
 
         <div className="chat-window border rounded p-3 mb-3">
@@ -168,7 +178,7 @@ function sendMessage(e: React.FormEvent) {
           </button>
         </form>
 
-      <div className="chat-window border rounded p-3 mt-10 mb-3">
+      <div className="chat-window  p-3 mt-10 mb-3">
          {systemMessages.map((m) => (
       <div
       key={m.id}
