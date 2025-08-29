@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../lib/prisma";
 
 // POST /api/rooms (create a room)
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const { name, slug } = await req.json();
 
   if (!name) {
@@ -16,28 +16,17 @@ export async function POST(req: Request) {
       Math.random().toString(36).slice(2, 6);
 
   const room = await prisma.room.create({
-    data: { name, slug: slugVal,type: "private",},
+    data: { name, slug: slugVal, type: "private" },
   });
 
   return NextResponse.json(room, { status: 201 });
 }
 
-// // GET /api/rooms (list rooms)
-// export async function GET() {
-//   const rooms = await prisma.room.findMany({
-//     orderBy: { createdAt: "desc" },
-//     take: 50,
-//   });
-
-//   return NextResponse.json(rooms);
-// }
-
-
 // GET -> list all public rooms
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     const rooms = await prisma.room.findMany({
-      where: { type: "public" },   // assuming you have an `isPublic` column
+      where: { type: "public" }, // your public rooms
       select: {
         id: true,
         name: true,
