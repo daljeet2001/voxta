@@ -5,8 +5,7 @@ export async function GET(
   req: Request,
   context: { params: { slug: string } }
 ) {
-  // If Next.js asks to "await params", we do this:
-  const { slug } = await Promise.resolve(context.params);
+  const { slug } = context.params; 
 
   const room = await prisma.room.findUnique({ where: { slug } });
   if (!room) {
