@@ -1,12 +1,11 @@
-
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../lib/prisma";
 
 export async function GET(
-  req: NextRequest,   
-  { params }: { params: { slug: string } }
+  req: NextRequest,
+  context: { params: { slug: string } } 
 ) {
-  const { slug } = params;
+  const { slug } = context.params;
 
   const room = await prisma.room.findUnique({ where: { slug } });
   if (!room) {
