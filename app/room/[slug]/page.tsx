@@ -131,6 +131,7 @@ function sendMessage(e: React.FormEvent) {
   return (
     <div className="min-h-screen bg-slate-100 p-6">
       <div className="max-w-3xl mx-auto bg-white p-4 rounded shadow">
+          <h1 className="text-2xl font-bold mb-4">Voxta</h1>
         <div className="flex justify-between  mb-3">
           <h2 className="text-xl font-semibold">Room: {slug}</h2>
           <div>
