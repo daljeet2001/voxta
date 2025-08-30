@@ -39,11 +39,9 @@ useEffect(() => {
     }
   })();
 
-  // Determine WS protocol
-  const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-  const ws = new WebSocket(
-    `${protocol}://${window.location.hostname}:${process.env.NEXT_PUBLIC_WS_PORT}`
-  );
+
+const ws = new WebSocket(`${process.env.NEXT_PUBLIC_WS_URL}`);
+
   wsRef.current = ws;
 
   // Queue messages until WS is open
